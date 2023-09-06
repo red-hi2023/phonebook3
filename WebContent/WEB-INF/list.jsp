@@ -37,15 +37,15 @@
 				<td>회사(company)</td><td><%=personList.get(i).getCompany()%></td>
 			</tr>
 			<tr>
-				<td><a href="">[수정]</a></td>
-				<td><a href="">[삭제]</a></td>
+				<td><a href="/phonebook3/pbc?action=updateForm&id=<%=personList.get(i).getPerson_id()%>">[수정]</a></td>
+				<td><a href="/phonebook3/pbc?action=delete&id=<%=personList.get(i).getPerson_id()%>">[삭제]</a></td>
 			</tr>
 		</table>
 		<br>
 	<%} %>	
 	<!-- 반복문 끝 -->
 	
-	<a href="">전화번호 등록폼</a> <br>
+	<a href="/phonebook3/pbc?action=wform">전화번호 등록폼</a> <br>
 	<br><br><br><br><br><br><br>
 </body>
 </html>

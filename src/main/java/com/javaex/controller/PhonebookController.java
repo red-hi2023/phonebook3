@@ -80,16 +80,67 @@ public class PhonebookController extends HttpServlet {
 			
 			
 			//리스트로 출력  -->리다이렉트
-			response.sendRedirect("/phonebook3/PhonebookController?action=list");
+			response.sendRedirect("/phonebook3/pbc?action=list");
 			
+			
+		}else if("delete".equals(action)) {
+			System.out.println("action=delete");
+			//삭제일때
+			
+			//파라미터 꺼내기
+			int personId = Integer.parseInt(request.getParameter("id"));
+			
+			//dao를 이용해서 데이타 삭제하기
+			PersonDao personDao = new PersonDao();
+			int count = personDao.personDelete(personId);
+			
+			//리스트로 출력  -->리다이렉트
+			response.sendRedirect("/phonebook3/pbc?action=list");
+			
+			
+		}else if("updateForm".equals(action)) {
+			System.out.println("action=editForm");
+			//수정폼
+			
+			//파라미터 꺼내기
+			int personId = Integer.parseInt(request.getParameter("id"));
+			
+			//dao를 이용해서 데이타 가져오기 1개
+			PersonDao personDao = new PersonDao();
+			PersonVo personVo = personDao.personSelectOne(personId);
+			
+			//리스트 화면(html) + data 응답을 해야된다
+	        //request data를 넣어둔다
+			request.setAttribute("personVo", personVo);
+			
+			//updateForm.jsp 에게 시킨다 	(포워드)
+			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/updateForm.jsp"); //jsp파일 위치를
+			rd.forward(request, response);
+			
+			
+		}else if("update".equals(action)) {
+			System.out.println("action=update");
+			//수정
+			
+			//파라미터 꺼내기
+			int personId = Integer.parseInt(request.getParameter("id"));
+			String name = request.getParameter("name");
+			String hp = request.getParameter("hp");
+			String company = request.getParameter("company");
+			
+			//파라미터값 1개로 묶기
+			PersonVo personVo = new PersonVo(personId, name, hp, company);
+			
+			//dao를 이용해서 데이타 수정하기
+			PersonDao personDao = new PersonDao();
+			int count = personDao.personUpdate(personVo);
+			
+			//리스트로 출력  -->리다이렉트
+			response.sendRedirect("/phonebook3/pbc?action=list");
 			
 		}else {
 			System.out.println("나머지");
 		}
-		
-		//삭제일때
-		//수정폼
-		//수정
 		
 	}
 
