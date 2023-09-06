@@ -14,7 +14,7 @@ import com.javaex.dao.PersonDao;
 import com.javaex.vo.PersonVo;
 
 
-@WebServlet("/PhonebookController")
+@WebServlet("/pbc")
 public class PhonebookController extends HttpServlet {
 	//필드
 	private static final long serialVersionUID = 1L;
@@ -56,9 +56,40 @@ public class PhonebookController extends HttpServlet {
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/writeForm.jsp"); //jsp파일 위치를
 			rd.forward(request, response);
 			
+		}else if("insert".equals(action)) {
+			System.out.println("action=insert");
+			//저장일때
+			
+			//파라미터 꺼내기
+			String name = request.getParameter("name");
+			String hp = request.getParameter("hp");
+			String company = request.getParameter("company");
+			
+			//파라미터값 1개로 묶기
+			PersonVo personVo = new PersonVo();
+			personVo.setName(name);
+			personVo.setHp(hp);
+			personVo.setCompany(company);
+			
+			//System.out.println(personVo);
+			
+			//dao를 이용해서 데이타 저장하기
+			PersonDao personDao = new PersonDao();
+			int count = personDao.personInsert(personVo);
+			System.out.println(count);
+			
+			
+			//리스트로 출력  -->리다이렉트
+			response.sendRedirect("/phonebook3/PhonebookController?action=list");
+			
+			
 		}else {
 			System.out.println("나머지");
 		}
+		
+		//삭제일때
+		//수정폼
+		//수정
 		
 	}
 

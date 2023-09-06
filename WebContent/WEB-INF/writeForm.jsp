@@ -14,10 +14,12 @@
 	
 	<p>정보을 등록하는 폼입니다. 정보를 등록하고 등록 버튼을 누르세요</p>
 	
-	<form action="./insert.jsp" method="get">
+	<!-- 절대주소 표시 -->
+	<form action="/phonebook3/PhonebookController" method="get">
 		이름(name): <input type="text" name="name" value=""><br>
 		핸드폰(hp): <input type="text" name="hp" value=""><br>
 		회사(company): <input type="text" name="company" value=""><br>
+		<input type="text" name="action" value="insert"><br>
 		
 		<button type="submit">등록</button>
 	</form>
