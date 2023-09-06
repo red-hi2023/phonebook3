@@ -26,12 +26,13 @@ public class PhonebookController extends HttpServlet {
 	//메소드 일반
 	//    get방식으로 요청이 들어왔을때 실행되는 메소드
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("PhonebookController");
+		
 		//파라미터 action의 값을 꺼내온다   업무구분욜
 		String action =request.getParameter("action");
-		System.out.println(action);
 		
-		if(action=="list") {
+		if("list".equals(action)) {
+			System.out.println("action=list");
+			
 			//리스트/////////////////////////////////////////////////////////////////////
 			//1.dao를 통해서 전체 리스트데이터 가져오기
 			PersonDao personDao = new PersonDao();
@@ -47,6 +48,14 @@ public class PhonebookController extends HttpServlet {
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/list.jsp"); //jsp파일 위치를
 			rd.forward(request, response);
 			//////////////////////////////////////////////////////////////////////////////
+		}else if("wform".equals(action)) {
+			System.out.println("action=wform");
+			//등록폼///////////////////////////////////////////////////////
+			
+			//writeForm.jsp 에게 시킨다 	(포워드)
+			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/writeForm.jsp"); //jsp파일 위치를
+			rd.forward(request, response);
+			
 		}else {
 			System.out.println("나머지");
 		}
